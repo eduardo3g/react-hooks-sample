@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 
 function App() {
   // tech = lista de tecnologias / setTech = função para atualizar as informações do estado
@@ -19,6 +19,9 @@ function App() {
     }
   }, []);
 
+  // Techsize só executará a função quando a variável tech estiver diferente
+  const techSize = useMemo(() => tech.length, [tech]);
+
   // ComponentDidUpdate = Monitorar alterações na variável 'tech' e salvá-la no Local Storage
   useEffect(() => {
     localStorage.setItem('tech', JSON.stringify(tech));
@@ -31,6 +34,8 @@ function App() {
           <li key={t}>{t}</li>
         ))}
       </ul>
+      <strong>Você tem {techSize} tecnologias.</strong>
+      <br />
       <input value={newTech} onChange={e => setNewTech(e.target.value)} />
       <button type="button" onClick={handleAdd}>
         Adicionar
