@@ -1,14 +1,14 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 
 function App() {
   // tech = lista de tecnologias / setTech = função para atualizar as informações do estado
   const [tech, setTech] = useState([]);
   const [newTech, setNewTech] = useState('');
 
-  function handleAdd() {
+  const handleAdd = useCallback(() => {
     setTech([...tech, newTech]);
     setNewTech('');
-  }
+  }, [newTech, tech]);
 
   // ComponentDidMount (Executa somente uma vez): passar um array vazio no segundo parâmetro
   useEffect(() => {
